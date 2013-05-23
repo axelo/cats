@@ -1,0 +1,14 @@
+<div class="row cat-row" ng-repeat="cat in cats">
+  <div class="span1">
+    <h1>123</h1>
+  </div>
+  <div class="span2">
+    <img ng-src="{{cat.pictureUrl}}" ng-click="toggle(cat)"/>
+  </div>
+  <div class="span9">
+    <h1 class="cat-row-name" ng-click="toggle(cat)">{{cat.name}}</h1>
+    <div style="color:white; padding: 10px" class="share palette-wet-asphalt" ng-show="cat.expandera">
+      <p>{{cat.comment}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="cats">
+<head>
+  <link rel="stylesheet" href="assets/stylesheets/bootstrap.css">
+  <link rel="stylesheet" href="assets/stylesheets/flat-ui.css">
+  <link rel="stylesheet" href="assets/stylesheets/cats.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular-resource.js"></script>
+  <script src="http://angular-ui.github.com/ui-router/build/angular-ui-states.min.js"></script>
+  <script src="/assets/javascripts/cats.js"></script>
+
+  <title>Cats</title>
+</head>
+<body>
+  <div class="container">
+    <div class="demo-headline">
+        <h1 class="demo-logo">My Favourite Cat Goodness Score</h1>
+        <div class="row">
+          <div class="span4">
+            <h2><a href="asdf">Show cats</a></h2>
+          </div>
+          <div class="span4"><img src="assets/images/nyanCat.gif" width="64px"/></div>
+          <div class="span4">
+            <h2><a href="asdf">Upload</a></h2>
+          </div>
+        </div>
+      </div>
+
+      <div ui-view></div>
+  </div>
+</body>
+</html>
