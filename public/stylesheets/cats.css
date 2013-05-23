@@ -6,3 +6,8 @@
   /*text-decoration: underline;*/
   cursor: pointer;
 }
+
+h1.demo-logo {
+  font-size: 150px;
+  padding-bottom: 10px;
+}
