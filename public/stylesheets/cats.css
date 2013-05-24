@@ -8,6 +8,20 @@
 }
 
 h1.demo-logo {
-  font-size: 150px;
+  /*font-size: 150px;*/
   padding-bottom: 10px;
+  letter-spacing: 15px;
+}
+
+.cats-arrow {
+  font-size: 40px;
+}
+
+.cats-row-points {
+  text-align: center;
+}
+
+.cats-headline {
+  font-size: 40px;
+  padding-bottom: 50px;
 }

@@ -24,6 +24,8 @@ you can use the generic selector below, but it's slower:
 */
 .fui-arrow-right,
 .fui-arrow-left,
+.fui-arrow-up,
+.fui-arrow-down,
 .fui-cmd,
 .fui-check-inverted,
 .fui-heart,
@@ -61,11 +63,23 @@ you can use the generic selector below, but it's slower:
   text-transform: none;
   -webkit-font-smoothing: antialiased;
 }
+.fui-arrow-up {
+  -webkit-transform: rotate(-90deg);
+}
+.fui-arrow-down {
+  -webkit-transform: rotate(90deg);
+}
 .fui-arrow-right:before {
   content: "\e02c";
 }
 .fui-arrow-left:before {
   content: "\e02d";
+}
+.fui-arrow-up:before {
+  content: "\e02c";
+}
+.fui-arrow-down:before {
+  content: "\e02c";
 }
 .fui-cmd:before {
   content: "\e02f";
