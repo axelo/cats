@@ -2,12 +2,16 @@
   padding-bottom: 50px;
 }
 
+.cat-row-name {
+  margin-left: 10px;
+}
+
 .cat-row-name:hover {
   /*text-decoration: underline;*/
   cursor: pointer;
 }
 
-h1.demo-logo {
+.demo-logo {
   /*font-size: 150px;*/
   padding-bottom: 10px;
   letter-spacing: 15px;

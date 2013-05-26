@@ -7,19 +7,10 @@ angular.module('cats', ['ui.state'])
     $stateProvider
       .state('enter', {
         url : '/',
-        templateUrl: '/assets/views/enter.html',
-        controller: EnterCtrl
-      })
-      .state('cats', {
-        url: '/cats?sortby',
-        templateUrl : '/assets/views/cats.html',
+        templateUrl: '/assets/views/cats.html',
         controller: CatsCtrl
-      });
+      })
   });
-
-function EnterCtrl($scope) {
-  // body...
-}
 
 function CatsCtrl($scope, $stateParams, $http) {
   console.log("CatsCtrl", $stateParams);
@@ -54,17 +45,3 @@ function CatsCtrl($scope, $stateParams, $http) {
       cat.expandera = cat.expandera ? false : true;
     }
 }
-
-
-/*Cobra
-
-Cats on branches
-
-Cat or bread radiation
-
-
-Cats Or Bread Rage Abuse
-
-Cobra - Cat Oh BRead Achivements
-*/
-
