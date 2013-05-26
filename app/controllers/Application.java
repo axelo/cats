@@ -5,6 +5,7 @@ import java.util.List;
 import models.Cat;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -22,10 +23,14 @@ public class Application extends Controller {
     
     public static Result getCat(Long id) {
     	Cat cat = Cat.find.byId(id);
-    	return ok(Json.toJson(cat));
+    	if (cat != null) {
+    		return ok(Json.toJson(cat));
+    	}
+    	
+    	return badRequest(getErrorJson("No cat found with id " + id)).as("application/json");
     }
-    
-    @BodyParser.Of(BodyParser.Json.class)
+
+	@BodyParser.Of(BodyParser.Json.class)
     public static Result createCat() {
     	JsonNode jsonCat = request().body().asJson();
     	
@@ -43,4 +48,11 @@ public class Application extends Controller {
     	
     	return ok();
     }
+    
+    private static ObjectNode getErrorJson(String message) {
+    	ObjectNode error = Json.newObject();
+    	error.put("Error", message);
+    	
+    	return error;
+	}
 }
