@@ -11,7 +11,6 @@ import play.db.ebean.Model;
 public class Cat extends Model{
 	private static final long serialVersionUID = 1L;
 
-
 	@Id
 	public long id;
 	

@@ -11,10 +11,8 @@
   cursor: pointer;
 }
 
-.demo-logo {
-  /*font-size: 150px;*/
-  padding-bottom: 10px;
-  letter-spacing: 15px;
+.cats {
+  margin-top: 40px;
 }
 
 .cats-arrow {
@@ -28,4 +26,25 @@
 .cats-headline {
   font-size: 40px;
   padding-bottom: 50px;
+}
+
+.cats-cross {
+  text-align: right;
+  text-decoration: none;
+  color: #34495e;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.demo-logo {
+  padding-bottom: 10px;
+  letter-spacing: 15px;
+}
+
+.demo-headline {
+  padding-bottom: 10px;
+}
+
+.tile {
+  text-align: left;
 }
