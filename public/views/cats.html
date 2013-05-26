@@ -4,7 +4,7 @@
     <div class="span2"></div>
     <div class="span1"><a href="#"><h3>About</h3></a></div>
     <div class="span6"><h3>Cats Or Bread Rage Abuse</h3></div>
-    <div class="span1"><a href="#"><h3>Upload</h3></a></div>
+    <div class="span1"><a ng-href="#/upload"><h3>Upload</h3></a></div>
     <div class="span2"></div>
   </div>  
   <div class="row">
@@ -13,16 +13,24 @@
   </div>
 </div>
 
+<div ui-view></div>
+
+<!--<div class="row cats-row-points">
+  <div class="span12">
+    <h1 class="cats-headline">Cats</h1>
+  </div>
+</div> -->
 
 <div class="row">
+  <div class="span2"></div>
   <div class="span3">
     <div class="btn-group">
-      <button type="button" class="btn ng-scope dropdown-toggle btn-primary" bs-dropdown="dropdown" data-toggle="dropdown">Select order <b class="caret"></b></button>
+      <button type="button" class="btn ng-scope dropdown-toggle btn-primary" bs-dropdown="selectOrder" data-toggle="dropdown">Select order <b class="caret"></b></button>
     </div>
   </div>
 </div>
 
-<div class="row cat-row" ng-repeat="cat in cats | orderBy:'score':isSortByCat">
+<div class="row cat-row cats" ng-repeat="cat in cats | orderBy:'score':isSortByCat" scroll-if="cat.id == selectedId">
   <div class="span2"></div>
   <div class="span1 cats-row-points">
     <div class="fui-arrow-up cats-arrow" ng-click="voteUp(cat)"></div>
