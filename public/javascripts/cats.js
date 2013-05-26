@@ -1,4 +1,4 @@
-angular.module('cats', ['ui.state'])
+angular.module('cats', ['ui.state', '$strap'])
   .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider
@@ -44,4 +44,38 @@ function CatsCtrl($scope, $stateParams, $http) {
    $scope.toggle = function(cat) {
       cat.expandera = cat.expandera ? false : true;
     }
+
+
+
+  $scope.dropdown = [
+  {
+    "text" : "Cats",
+    "click" : "sortByCat()"
+  },
+  {
+    "text" : "Bread Rage Abuse",
+    "click" : "sortByBread()"
+  }]
+
+  $scope.sortByCat = function() {
+    isSortByCat = true;
+  }
+
+  $scope.sortByBread = function() {
+    isSortByCat = false;
+  }
 }
+
+
+function TestCtrl($scope) {
+  $scope.dropdown = [
+    {text: 'Another action 1', click: "testFn()", href:"#"},
+    {text: 'Another action 2', click: "testFn()", href:'#'},
+    {text: 'Another action 3 ', click: "testFn()", href:'#'}
+  ]
+  
+  $scope.testFn = function() {
+    alert("working");
+  };
+}
+

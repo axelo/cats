@@ -13,7 +13,7 @@ public class Cat extends Model{
 
 
 	@Id
-	public long id;
+	public Long id;
 	
 	public String name;
 	

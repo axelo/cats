@@ -35,6 +35,7 @@ public class Application extends Controller {
     	JsonNode jsonCat = request().body().asJson();
     	
     	Cat cat = Json.fromJson(jsonCat, Cat.class);
+    	cat.id = null;
     	cat.save();
     	
     	return ok();
