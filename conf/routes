@@ -10,7 +10,7 @@ GET     /cats                               controllers.Application.findAll()
 POST	/cats								controllers.Application.createCat()
 
 GET     /cats/:id                           controllers.Application.getCat(id: Long)
-#PUT		/cats/:id							controllers.Application.update()
+PUT		/cats								controllers.Application.update()
 
 
 

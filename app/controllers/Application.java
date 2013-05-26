@@ -35,9 +35,12 @@ public class Application extends Controller {
     	return ok();
     }
     
-//    public static Result update() {
-//    	cat.save();
-//    	
-//    	return ok();
-//    }
+    public static Result update() {
+    	JsonNode jsonCat = request().body().asJson();
+    	
+    	Cat cat = Json.fromJson(jsonCat, Cat.class);
+    	cat.update();
+    	
+    	return ok();
+    }
 }
