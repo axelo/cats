@@ -19,7 +19,7 @@ var app = angular.module('cats', ['ui.state', '$strap'])
         url: '/:id',
         controller: function($stateParams, $rootScope) {
           console.log("cats ctrl")
-          $rootScope.selectedId = $stateParams.id;
+          //$rootScope.selectedId = $stateParams.id;
         }
       });
   });
@@ -28,7 +28,7 @@ var app = angular.module('cats', ['ui.state', '$strap'])
     return function (scope, element, attributes) {
       setTimeout(function () {
         if (scope.$eval(attributes.scrollIf)) {
-          window.scrollTo(0, element[0].offsetTop - 100)
+          window.scrollTo(0, element[0].offsetTop - 500)
         }
       });
     }
@@ -129,16 +129,22 @@ function CatsCtrl($scope, $state, $stateParams, $http, $rootScope) {
 }
 
 
-function UploadCtrl($scope, $http, $state) {
+function UploadCtrl($scope, $rootScope, $http, $state) {
   console.log("Upload ctrl")
 
   $scope.cat = {};
+
+  $scope.close = function() {
+    $state.transitionTo('cats');
+  }
 
   $scope.upload = function() {
     console.log("Laddar upp: " + $scope.cat.name, $scope.cat);
 
     $http.post('/cats', $scope.cat)
       .success(function(data, status, headers) {
+        $scope.cats.push(data);
+        $state.transitionTo('cats.cat', {id:data.id});
       })
       .error(function(data, status) {
         console.log("fan: " + status);
