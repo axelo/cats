@@ -38,7 +38,12 @@ public class Application extends Controller {
     	cat.id = null;
     	cat.save();
     	
-    	return ok();
+    	String url = routes.Application.createCat().absoluteURL(request());
+    	url += "/" + cat.id;
+    	
+    	response().setHeader(LOCATION, url);
+    	
+    	return created();
     }
     
     public static Result update() {
