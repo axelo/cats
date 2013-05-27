@@ -15,23 +15,42 @@ var app = angular.module('cats', ['ui.state', '$strap'])
         templateUrl : '/assets/views/upload.html',
         controller: UploadCtrl
       })
-      /*.state('cats.cat', {
-
-      })*/;
+      .state('cats.cat', {
+        url: '/:id',
+        controller: function($stateParams, $rootScope) {
+          console.log("cats ctrl")
+          $rootScope.selectedId = $stateParams.id;
+        }
+      });
   });
 
-app.directive('scrollIf', function () {
-  return function (scope, element, attributes) {
+  app.directive('scrollIf', function () {
+    return function (scope, element, attributes) {
+      setTimeout(function () {
+        if (scope.$eval(attributes.scrollIf)) {
+          window.scrollTo(0, element[0].offsetTop - 100)
+        }
+      });
+    }
+  });
+
+
+function CatsCtrl($scope, $state, $stateParams, $http, $rootScope) {
+
+  console.log("CatsCtrl", $state.params);
+
+  //$rootScope.selectedId = 0;
+
+  function scrollToCat(id) {
     setTimeout(function () {
-      if (scope.$eval(attributes.scrollIf)) {
-        window.scrollTo(0, element[0].offsetTop - 100)
-      }
+      var element = $("a[href$='cats/" + id + "']").get();
+      if (element.length > 0)  window.scrollTo(0, element[0].offsetTop - 100)
     });
   }
-});
 
-function CatsCtrl($scope, $state, $stateParams, $http) {
-  console.log("CatsCtrl", $stateParams);
+  $rootScope.$watch('selectedId', function() {
+    scrollToCat($rootScope.selectedId);
+  });
 
   $scope.$on('refresh', function(e, data) {
     $scope.cats = data;
@@ -48,12 +67,14 @@ function CatsCtrl($scope, $state, $stateParams, $http) {
 
   $scope.voteUp = function(cat) {
     cat.score += 1 * direction;
-    $scope.selectedId = cat.id;
+    $state.transitionTo('cats.cat', {id: cat.id});
+    scrollToCat(cat.id);
   }
 
   $scope.voteDown = function(cat) {
     cat.score -= 1 * direction;
-    $scope.selectedId = cat.id;
+    $state.transitionTo('cats.cat', {id: cat.id});
+    scrollToCat(cat.id);
   }
 
   $http.get('/cats')
@@ -67,8 +88,6 @@ function CatsCtrl($scope, $state, $stateParams, $http) {
    $scope.toggle = function(cat) {
       cat.expandera = cat.expandera ? false : true;
     }
-
-
 
   $scope.selectOrder = [
   {
@@ -88,6 +107,12 @@ function CatsCtrl($scope, $state, $stateParams, $http) {
   $scope.sortByBread = function() {
     $scope.isSortByCat = false;
     direction = -1;
+  }
+
+  $scope.close = function() {
+    //if ()
+    $state.transitionTo('cats');
+    //console.log("tja", $state);
   }
 }
 
@@ -114,16 +139,11 @@ function UploadCtrl($scope, $http, $state) {
     console.log("Laddar upp: " + $scope.cat.name, $scope.cat);
 
     $http.post('/cats', $scope.cat)
-      .success(function(data, status) {
+      .success(function(data, status, headers) {
 
-        $http.get('/cats') // temp hack :P
-          .success(function(data, status) {
-            $scope.$emit('refresh', data);
-            $state.transitionTo('cats');
-          })
-          .error(function(data, status) {
-            console.log("wtf");
-          });
+        headers().location
+        console.log();
+
       })
       .error(function(data, status) {
         console.log("fan: " + status);

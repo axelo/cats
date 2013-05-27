@@ -4,7 +4,7 @@
     <div class="span2"></div>
     <div class="span1"><a href="#"><h3>About</h3></a></div>
     <div class="span6"><h3>Cats Or Bread Rage Abuse</h3></div>
-    <div class="span1"><a ng-href="#/upload"><h3>Upload</h3></a></div>
+    <div class="span1"><a ng-href="#/upload" ng-click="close()"><h3>Upload</h3></a></div>
     <div class="span2"></div>
   </div>  
   <div class="row">
@@ -25,7 +25,7 @@
   <div class="span2"></div>
   <div class="span3">
     <div class="btn-group">
-      <button type="button" class="btn ng-scope dropdown-toggle btn-primary" bs-dropdown="selectOrder" data-toggle="dropdown">Select order <b class="caret"></b></button>
+      <button type="button" class="btn dropdown-toggle btn-primary" bs-dropdown="selectOrder" data-toggle="dropdown">Select order <b class="caret"></b></button>
     </div>
   </div>
 </div>
@@ -41,10 +41,9 @@
     <img ng-src="{{cat.pictureUrl}}" ng-click="toggle(cat)"/>
   </div>
   <div class="span5">
-    <h1 class="cat-row-name" ng-click="toggle(cat)">{{cat.name}}</h1>
+    <h1 class="cat-row-name" ng-click="toggle(cat)"><a ng-href="#/cats/{{cat.id}}">{{cat.name}}</a></h1>
     <div style="color:white; padding: 10px" class="share palette-wet-asphalt" ng-hide="cat.expandera">
       <p>{{cat.comment}}</p>
     </div>
   </div>
 </div>
-
