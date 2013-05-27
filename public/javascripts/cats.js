@@ -34,22 +34,46 @@ var app = angular.module('cats', ['ui.state', '$strap'])
     }
   });
 
+app.value('$anchorScroll', angular.noop); // Disable scroll to top when changing ui states
 
 function CatsCtrl($scope, $state, $stateParams, $http, $rootScope) {
 
   console.log("CatsCtrl", $state.params);
+
+  $scope.isSortByCat = true;
+  var direction = 1 ;
+  $scope.sortingBy = "Cats";
 
   //$rootScope.selectedId = 0;
 
   function scrollToCat(id) {
     setTimeout(function () {
       var element = $("a[href$='cats/" + id + "']").get();
-      if (element.length > 0)  window.scrollTo(0, element[0].offsetTop - 100)
+      //if (element.length > 0)  window.scrollTo(0, element[0].offsetTop - 100)
     });
   }
 
+  function updateCat(cat) {
+    var copyOfCat = angular.copy(cat);
+    delete copyOfCat.expandera;
+
+    $http.put('/cats', copyOfCat)
+      .success(function(data, status) {  })
+      .error(function(data, status) { alert(status) });
+  }
+
+  function vote(cat, direction) {
+    cat.score += direction;
+
+    updateCat(cat);
+
+    //$state.transitionTo('cats.cat', {id: cat.id});
+    
+    //scrollToCat(cat.id);
+  }
+
   $rootScope.$watch('selectedId', function() {
-    scrollToCat($rootScope.selectedId);
+    //scrollToCat($rootScope.selectedId);
   });
 
   $scope.$on('refresh', function(e, data) {
@@ -57,23 +81,16 @@ function CatsCtrl($scope, $state, $stateParams, $http, $rootScope) {
     $scope.selectedId = $scope.cats[$scope.cats.length - 1].id;
   });
   
-  var direction = $scope.isSortByCat ? 1 : -1;
-  $scope.sortingBy = "Cats";
-  
   $scope.getScore = function(cat) {
     return cat.score * direction;
   }
 
   $scope.voteUp = function(cat) {
-    cat.score += 1 * direction;
-    $state.transitionTo('cats.cat', {id: cat.id});
-    scrollToCat(cat.id);
+    vote(cat, direction);
   }
 
   $scope.voteDown = function(cat) {
-    cat.score -= 1 * direction;
-    $state.transitionTo('cats.cat', {id: cat.id});
-    scrollToCat(cat.id);
+    vote(cat, -direction);
   }
 
   $http.get('/cats')
@@ -109,12 +126,6 @@ function CatsCtrl($scope, $state, $stateParams, $http, $rootScope) {
     direction = -1;
     $scope.sortingBy = "Bread Rage Abuse";
   }
-
-  $scope.close = function() {
-    //if ()
-    $state.transitionTo('cats');
-    //console.log("tja", $state);
-  }
 }
 
 
@@ -128,10 +139,6 @@ function UploadCtrl($scope, $http, $state) {
 
     $http.post('/cats', $scope.cat)
       .success(function(data, status, headers) {
-
-        headers().location
-        console.log();
-
       })
       .error(function(data, status) {
         console.log("fan: " + status);
