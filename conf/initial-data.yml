@@ -1,15 +1,15 @@
 - !!models.Cat
   name: Elsa
   comment: Crazy chick
-  score: 0
+  score: 3
   pictureUrl: /assets/images/cat1.jpeg
 - !!models.Cat
   name: Harald
   comment: Livet leker!
-  score: 0
+  score: 2
   pictureUrl: /assets/images/cat2.jpg
 - !!models.Cat
   name: Brodern
   comment: Allt för maten
-  score: 0
+  score: 1
   pictureUrl: /assets/images/cat3.jpeg
