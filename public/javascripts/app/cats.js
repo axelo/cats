@@ -36,8 +36,6 @@ function CatsCtrl($scope, $http, cats) {
     $scope.sortingBy = $scope.isSortPopular ?  $scope.sortOrder[0].text : $scope.sortOrder[1].text;
   });
 
-  $scope.isSortByCat = true;
-
   $scope.$on('cat-uploaded', function(e, cat) {
     $scope.cats.push(cat);
   });
@@ -79,7 +77,6 @@ function CatsCtrl($scope, $http, cats) {
 }
 
 CatsCtrl.resolve = function($http) {
-  console.log('Yeess, this is the resolver! =)');
   return $http.get('/cats');
 }
 
