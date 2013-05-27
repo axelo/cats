@@ -43,7 +43,7 @@ public class Application extends Controller {
     	
     	response().setHeader(LOCATION, url);
     	
-    	return created();
+    	return created(Json.toJson(cat));
     }
     
     public static Result update() {

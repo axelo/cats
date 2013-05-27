@@ -37,11 +37,10 @@ function CatsCtrl($scope, $state, $stateParams, $http) {
     $scope.cats = data;
     $scope.selectedId = $scope.cats[$scope.cats.length - 1].id;
   });
-
-  $scope.isSortByCat = $stateParams.sortby ? $stateParams.sortby === 'cats' : true;
   
   var direction = $scope.isSortByCat ? 1 : -1;
-
+  $scope.sortingBy = "Cats";
+  
   $scope.getScore = function(cat) {
     return cat.score * direction;
   }
@@ -83,25 +82,14 @@ function CatsCtrl($scope, $state, $stateParams, $http) {
   $scope.sortByCat = function() {
     $scope.isSortByCat = true;
     direction = 1;
+    $scope.sortingBy = "Cats";
   }
 
   $scope.sortByBread = function() {
     $scope.isSortByCat = false;
     direction = -1;
+    $scope.sortingBy = "Bread Rage Abuse";
   }
-}
-
-
-function TestCtrl($scope) {
-  $scope.dropdown = [
-    {text: 'Another action 1', click: "testFn()", href:"#"},
-    {text: 'Another action 2', click: "testFn()", href:'#'},
-    {text: 'Another action 3 ', click: "testFn()", href:'#'}
-  ]
-  
-  $scope.testFn = function() {
-    alert("working");
-  };
 }
 
 
