@@ -1,16 +1,18 @@
+<!-- Upoad view -->
+<div ui-view ng-animate="'fade'"></div>
 
 <!-- Sorting Combobox -->
 <div class="row">
   <div class="span2"></div>
   <div class="span3">
     <div class="btn-group">
-      <button type="button" class="btn dropdown-toggle btn-primary" bs-dropdown="selectOrder" data-toggle="dropdown">{{sortingBy}} <b class="caret"></b></button>
+      <button type="button" class="btn dropdown-toggle btn-primary" bs-dropdown="sortOrder" data-toggle="dropdown">{{sortingBy}} <b class="caret"></b></button>
     </div>
   </div>
 </div>
 
 <!-- Repeate Row For Each Cat -->
-<div class="row cat-row cats" ng-repeat="cat in cats | orderBy:'score':isSortByCat">
+<div class="row cat-row cats" ng-repeat="cat in cats | orderBy:'score':isSortPopular">
   
   <!-- Score and Vote Up/Down Column -->
   <div class="span2"></div>

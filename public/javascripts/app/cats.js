@@ -6,52 +6,34 @@ var app = angular.module('cats', ['ui.state', '$strap'])
     $stateProvider
       .state('cats', {
         url : '/cats',
+        templateUrl: '/assets/views/cats.html', 
         controller: CatsCtrl,
-        views: { 
-          'cats-view': { 
-            templateUrl: '/assets/views/cats.html',
-            controller: CatsCtrl,
-            resolve: {
-              cats : CatsCtrl.resolve
-            }
-          }
+        resolve: {
+          cats: CatsCtrl.resolve
         }
       })
       .state('cats.upload', {
-        url: '^/upload',
-        views : {
-          'upload-view@' : {
-            templateUrl : '/assets/views/upload.html',
-            controller: UploadCtrl            
-          }
-        }
+        url: '/upload',  
+        templateUrl : '/assets/views/upload.html',
+        controller: UploadCtrl            
       });
-  })
-  .directive('scrollIf', function () {
-    return function (scope, element, attributes) {
-      setTimeout(function () {
-        if (scope.$eval(attributes.scrollIf)) {
-          window.scrollTo(0, element[0].offsetTop - 500)
-        }
-      });
-    }
   })
   .value('$anchorScroll', angular.noop); // Disable scroll to top when changing ui states
 
 function CatsCtrl($scope, $http, cats) {
   $scope.cats = cats.data;
+  $scope.isSortPopular = true;
 
-  $scope.selectOrder = [{
-    "text" : "Cats",
-    "click" : "sortByCat()"
+  $scope.sortOrder = [{
+    "text" : "Most Popular",
+    "click" : "sortByMostPopular(true)"
   }, {
-    "text" : "Bread Rage Abuse",
-    "click" : "sortByBread()"
+    "text" : "Least Popular",
+    "click" : "sortByMostPopular(false)"
   }]
 
-  $scope.$watch('isSortByCat', function() {
-    $scope.sortingBy = $scope.isSortByCat ?  $scope.selectOrder[0].text : $scope.selectOrder[1].text;
-    $scope.direction = $scope.isSortByCat ? 1 : -1;
+  $scope.$watch('isSortPopular', function() {
+    $scope.sortingBy = $scope.isSortPopular ?  $scope.sortOrder[0].text : $scope.sortOrder[1].text;
   });
 
   $scope.isSortByCat = true;
@@ -69,42 +51,39 @@ function CatsCtrl($scope, $http, cats) {
       .error(function(data, status) { alert(status) });
   }
 
-  function vote(cat, direction) {
-    cat.score += direction;
+  function vote(cat, value) {
+    cat.score += value;
 
     updateCat(cat);
   }
 
   $scope.getScore = function(cat) {
-    return cat.score * $scope.direction;
+    return cat.score;
   }
 
   $scope.voteUp = function(cat) {
-    vote(cat, $scope.direction);
+    vote(cat, 1);
   }
 
   $scope.voteDown = function(cat) {
-    vote(cat, -$scope.direction);
+    vote(cat, -1);
   }
 
   $scope.toggle = function(cat) {
     cat.expandera = !cat.expandera;
   }
 
-  $scope.sortByCat = function() {
-    $scope.isSortByCat = true;
-  }
-
-  $scope.sortByBread = function() {
-    $scope.isSortByCat = false;
+  $scope.sortByMostPopular = function(val) {
+    $scope.isSortPopular = val;
   }
 }
 
 CatsCtrl.resolve = function($http) {
+  console.log('Yeess, this is the resolver! =)');
   return $http.get('/cats');
 }
 
-function UploadCtrl($scope, $rootScope, $http, $state) {
+function UploadCtrl($scope, $http, $state) {
   $scope.cat = {};
 
   $scope.close = function() {
@@ -114,7 +93,7 @@ function UploadCtrl($scope, $rootScope, $http, $state) {
   $scope.upload = function() {
     $http.post('/cats', $scope.cat)
       .success(function(data, status, headers) {
-        $rootScope.$broadcast('cat-uploaded', data);
+        $scope.$emit('cat-uploaded', data);
         $state.transitionTo('cats');
       })
       .error(function(data, status) {

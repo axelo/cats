@@ -1,28 +1,23 @@
 package controllers;
 
-import java.util.List;
-
 import models.Cat;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
 import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-public class Application extends Controller {
+public class CatApi extends Controller {
   
     public static Result findAll() {
-    	List<Cat> Cats = Cat.find.all();
-    	
-    	return ok(Json.toJson(Cats));
-    	
+    	return ok(Json.toJson(Cat.find.all()));
     }
     
     public static Result getCat(Long id) {
     	Cat cat = Cat.find.byId(id);
+    	
     	if (cat != null) {
     		return ok(Json.toJson(cat));
     	}
@@ -30,7 +25,6 @@ public class Application extends Controller {
     	return badRequest(getErrorJson("No cat found with id " + id)).as("application/json");
     }
 
-	@BodyParser.Of(BodyParser.Json.class)
     public static Result createCat() {
     	JsonNode jsonCat = request().body().asJson();
     	
@@ -38,7 +32,7 @@ public class Application extends Controller {
     	cat.id = null;
     	cat.save();
     	
-    	String url = routes.Application.createCat().absoluteURL(request());
+    	String url = routes.CatApi.createCat().absoluteURL(request());
     	url += "/" + cat.id;
     	
     	response().setHeader(LOCATION, url);

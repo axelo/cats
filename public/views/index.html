@@ -4,17 +4,18 @@
   <link rel="stylesheet" href="assets/stylesheets/bootstrap.css">
   <link rel="stylesheet" href="assets/stylesheets/flat-ui.css">
   <link rel="stylesheet" href="assets/stylesheets/cats.css">
+  <link href="assets/images/favicon.png" type="image/png" rel="shortcut icon">
   
-  <script src="assets/javascripts/jquery-1.9.0.min.js"></script>
-  <script src="assets/javascripts/jquery-ui.js"></script>
-  <script src="assets/javascripts/angular.js"></script>
-  <script src="assets/javascripts/angular-resource.js"></script>
-  <script src="assets/javascripts/angular-ui-router.min.js"></script>
-  <script src="assets/javascripts/bootstrap.min.js"></script>
-  <script src="assets/javascripts/angular-strap.js"></script>
-  <script src="/assets/javascripts/cats.js"></script>
+  <script src="assets/javascripts/vendor/jquery-1.9.0.min.js"></script>
+  <script src="assets/javascripts/vendor/jquery-ui.js"></script>
+  <script src="assets/javascripts/vendor/angular.js"></script>
+  <script src="assets/javascripts/vendor/angular-resource.js"></script>
+  <script src="assets/javascripts/vendor/angular-ui-router.min.js"></script>
+  <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+  <script src="assets/javascripts/vendor/angular-strap.js"></script>
+  <script src="assets/javascripts/app/cats.js"></script>
 
-  <title>Cats</title>
+  <title>COBRA</title>
 </head>
 <body>
   <div class="container">
@@ -24,9 +25,11 @@
       <h1 class="demo-logo">COBRA</h1>
       <div class="row">
         <div class="span2"></div>
+        <!-- Länk till modala dialogen -->
         <div class="span1"><a bs-modal="'assets/views/about.html'"><h3>About</h3></a></div>
         <div class="span6"><h3>Cats Or Bread Rage Abuse</h3></div>
-        <div class="span1"><a ng-href="#/upload"><h3>Upload</h3></a></div>
+        <!-- Länk till upload -->
+        <div class="span1"><a ng-href="#/cats/upload"><h3>Upload</h3></a></div>
         <div class="span2"></div>
       </div>  
       <div class="row">
@@ -35,11 +38,8 @@
       </div>
     </div>
 
-    <!-- Upload View -->
-    <div ui-view="upload-view" ng-animate="'fade'"></div>
-
     <!-- Cat View -->
-    <div ui-view="cats-view"></div>
+    <div ui-view></div>
   </div>
   
 </body>

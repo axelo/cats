@@ -6,13 +6,11 @@
 GET     /                                   controllers.Assets.at(path="/public/views", file="index.html")
 
 # Cat RESTful API
-GET     /cats                               controllers.Application.findAll()
-POST	/cats								controllers.Application.createCat()
+GET     /cats                               controllers.CatApi.findAll()
+POST	/cats								controllers.CatApi.createCat()
 
-GET     /cats/:id                           controllers.Application.getCat(id: Long)
-PUT		/cats								controllers.Application.update()
-
-
+GET     /cats/:id                           controllers.CatApi.getCat(id: Long)
+PUT		/cats								controllers.CatApi.update()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)
