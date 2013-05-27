@@ -17,8 +17,7 @@ var app = angular.module('cats', ['ui.state', '$strap'])
         templateUrl : '/assets/views/upload.html',
         controller: UploadCtrl            
       });
-  })
-  .value('$anchorScroll', angular.noop); // Disable scroll to top when changing ui states
+  });
 
 function CatsCtrl($scope, $http, cats) {
   $scope.cats = cats.data;
@@ -53,10 +52,6 @@ function CatsCtrl($scope, $http, cats) {
     cat.score += value;
 
     updateCat(cat);
-  }
-
-  $scope.getScore = function(cat) {
-    return cat.score;
   }
 
   $scope.voteUp = function(cat) {

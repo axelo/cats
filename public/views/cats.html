@@ -11,20 +11,20 @@
   </div>
 </div>
 
-<!-- Repeate Row For Each Cat -->
+<!-- Repeate  bootstrap Row For Each Cat -->
 <div class="row cat-row cats" ng-repeat="cat in cats | orderBy:'score':isSortPopular">
   
   <!-- Score and Vote Up/Down Column -->
   <div class="span2"></div>
   <div class="span1 cats-row-points">
     <div class="fui-arrow-up cats-arrow" ng-click="voteUp(cat)"></div>
-    <h1>{{getScore(cat)}}</h1>
+    <h1>{{cat.score}}</h1>
     <div class="fui-arrow-down cats-arrow" ng-click="voteDown(cat)"></div>
   </div>
 
   <!-- Picture of Cat Column -->
   <div class="span2 img-outer">
-    <img ng-src="{{cat.pictureUrl}}" ng-click="toggle(cat)"/>
+    <img ng-src="{{cat.pictureUrl}}"/>
   </div>
 
   <!-- Name and Comment Column -->
