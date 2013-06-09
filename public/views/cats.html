@@ -12,7 +12,8 @@
 </div>
 
 <!-- Repeate  bootstrap Row For Each Cat -->
-<div class="row cat-row cats" ng-repeat="cat in cats | orderBy:'score':isSortPopular">
+<div style="position: relative">
+<div class="row cat-row cats" ng-repeat="cat in cats" ng-animate="{move: 'myanim'}" ng-style="setPos(cat)">
   
   <!-- Score and Vote Up/Down Column -->
   <div class="span2"></div>
@@ -35,3 +36,4 @@
     </div>
   </div> 
 </div> <!-- End of Row For Each Cat -->
+</div>

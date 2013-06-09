@@ -1,5 +1,7 @@
 .cat-row {
-  padding-bottom: 50px;
+  position: absolute;
+  /*padding-bottom: 50px;*/
+  top: 0;
 }
 
 .cat-row-name {
@@ -38,6 +40,8 @@
 
 .cats-upload-container {
   margin-bottom: 50px;
+  height: 266px;
+  overflow: hidden;
 }
 
 .demo-logo {
@@ -53,20 +57,61 @@
   text-align: left;
 }
 
-.fade-enter-setup, .fade-leave-setup {
-  -webkit-transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-}
-
-.fade-leave-setup {
-  -webkit-transition: opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-}
-
-.fade-enter-setup,
-.fade-leave-setup.fade-leave-start {
+.fade-enter {
+  -webkit-transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+  height: 0px;
   opacity: 0;
 }
 
-.fade-leave-setup,
-.fade-enter-setup.fade-enter-start {
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  height: 266px;
+}
+
+.fade-leave {
+  -webkit-transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   opacity: 1;
 }
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  height: 0px;
+  margin-bottom: 0px;
+}
+
+
+
+.custom-enter,
+.custom-leave
+/*.custom-move */{
+  -webkit-transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+  position:relative;
+}
+
+.custom-enter {
+  left: -10px;
+  opacity: 0;
+}
+.custom-enter.custom-enter-active {
+  left: 0;
+  opacity: 1;
+}
+
+.custom-leave {
+  left: 0;
+  opacity: 1;
+}
+.custom-leave.custom-leave-active {
+  left: -10px;
+  opacity: 0;
+}
+
+/*.custom-move {
+  opacity: 0.5;
+  left: -20px;
+}
+.custom-move.custom-move-active {
+  opacity: 1;
+  left: 0;
+}*/
+
