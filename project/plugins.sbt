@@ -6,3 +6,8 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("play" % "sbt-plugin" % "2.1.1")
+
+// resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
+
+// addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.3-SNAPSHOT")
+

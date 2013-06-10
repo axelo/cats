@@ -1,7 +1,6 @@
 .cat-row {
   position: absolute;
-  /*padding-bottom: 50px;*/
-  top: 0;
+  -webkit-transition: top 0.5s ease-in-out;
 }
 
 .cat-row-name {
@@ -78,40 +77,3 @@
   height: 0px;
   margin-bottom: 0px;
 }
-
-
-
-.custom-enter,
-.custom-leave
-/*.custom-move */{
-  -webkit-transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-  position:relative;
-}
-
-.custom-enter {
-  left: -10px;
-  opacity: 0;
-}
-.custom-enter.custom-enter-active {
-  left: 0;
-  opacity: 1;
-}
-
-.custom-leave {
-  left: 0;
-  opacity: 1;
-}
-.custom-leave.custom-leave-active {
-  left: -10px;
-  opacity: 0;
-}
-
-/*.custom-move {
-  opacity: 0.5;
-  left: -20px;
-}
-.custom-move.custom-move-active {
-  opacity: 1;
-  left: 0;
-}*/
-

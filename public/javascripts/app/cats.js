@@ -19,55 +19,7 @@ var app = angular.module('cats', ['ui.state', '$strap'])
       });
   });
 
-app.animation('myanim', function() {
-  return {
-    setup: function(el) {
-      /*var up = el[0];
-      var down = el[0].nextSibling;
-
-      var height = jQuery(up).outerHeight(true);
-
-      var diff = up.offsetTop - down.offsetTop;
-
-      console.log(diff);
-
-      up.style.top = height + "px";
-      down.style.top = -height + "px";*/
-
-      //console.log(height);
-
-      //jQuery(up).css({'top': height + "px"});
-      //jQuery(down).css({'top': -height + "px"});
-    },
-    start: function(el, done, memo) {
-      /*console.log("start");
-      var up = el[0];
-      var down = el[0].nextSibling;
-
-      var upDone = false;
-      var downDone = false;
-
-      jQuery(up).animate({
-        'top':0
-      }, function() {
-        upDone = true;
-        if (upDone && downDone) done(); 
-      });
-
-      jQuery(down).animate({
-        'top':0
-      }, function() {
-        downDone = true;
-        if (upDone && downDone) done(); 
-      });*/
-    },
-    cancel: function(el, done) {
-      console.log("cancel");
-    }
-  };
-});
-
-function CatsCtrl($scope, $http, cats) {
+function CatsCtrl($scope, $http, $timeout, cats) {
   $scope.cats = cats.data;
   sortCats();
 
@@ -83,48 +35,24 @@ function CatsCtrl($scope, $http, cats) {
 
   $scope.$watch('isSortPopular', function() {
     $scope.sortingBy = $scope.isSortPopular ?  $scope.sortOrder[0].text : $scope.sortOrder[1].text;
+    sortCats();
   });
 
   $scope.$on('cat-uploaded', function(e, cat) {
+    cat.order = $scope.cats.length;
     $scope.cats.push(cat);
   });
 
-  $scope.$watch('cats', function(newVal, oldVal, scope) {
-    sortCats();
-
-    /*console.log(newVal, oldVal);
-    console.log(scope.$index, scope);
-    sortCats();*/
-  }, true);
-
   function sortCats() {
     $scope.cats.sort(function(a, b) {
-      /*var compare = b.score - a.score;
-
-      if (compare === 0 && a.order && b.order) {
-        console.log(a.order);
-        console.log(b.order);
-        console.log(b.order - a.order);
-
-        var h = (b.order - a.order) + "";
-        console.log("h", h)
-        //return parseInt(h);
-        return 1;
-      }*/
-
-      /*if (compare === 0) {
-        //compare = b.order - a.order;v
-        var s = b.order;
-        var t = a.order;
-        compare = s - t;
-      }*/
-
-      return 1;
+      return $scope.isSortPopular ? (b.score - a.score) : (a.score - b.score);
     });
 
-    $scope.cats.forEach(function(cat, i) {
-      cat.order = i;
-    });
+    $timeout(function() {
+      $scope.cats.forEach(function(cat, i) {
+        cat.order = i;
+      });
+    }, 0);
   }
 
   function updateCat(cat) {
@@ -135,6 +63,8 @@ function CatsCtrl($scope, $http, cats) {
     $http.put('/cats', copyOfCat)
       .success(function(data, status) {})
       .error(function(data, status) { alert(status) });
+
+    sortCats();
   }
 
   function vote(cat, value) {
