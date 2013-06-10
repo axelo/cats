@@ -42,6 +42,29 @@ function CatsCtrl($scope, $http, $timeout, cats) {
 
   sortCats();
 
+  var webSocket = new WebSocket("ws://localhost:6543");
+
+  console.log(webSocket);
+
+  // When the connection is open, send some data to the server
+  webSocket.onopen = function () {
+    webSocket.send('Ping'); // Send the message 'Ping' to the server
+  };
+
+  // Log errors
+  webSocket.onerror = function (error) {
+    console.log('WebSocket Error ' + error);
+  };
+
+  // Log messages from the server
+  webSocket.onmessage = function (e) {
+    console.log('Server: ' + e.data);
+  };
+
+  webSocket.onclose = function(e) {
+    console.log("onclose", e);
+  }
+
   function sortCats() {
     $scope.cats.sort(function(a, b) {
       return $scope.isSortPopular ? (b.score - a.score) : (a.score - b.score);
