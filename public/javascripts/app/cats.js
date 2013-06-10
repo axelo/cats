@@ -21,10 +21,7 @@ var app = angular.module('cats', ['ui.state', '$strap'])
 
 function CatsCtrl($scope, $http, $timeout, cats) {
   $scope.cats = cats.data;
-  sortCats();
-
   $scope.isSortPopular = true;
-
   $scope.sortOrder = [{
     "text" : "Most Popular",
     "click" : "sortByMostPopular(true)"
@@ -39,9 +36,11 @@ function CatsCtrl($scope, $http, $timeout, cats) {
   });
 
   $scope.$on('cat-uploaded', function(e, cat) {
-    cat.order = $scope.cats.length;
     $scope.cats.push(cat);
+    sortCats();
   });
+
+  sortCats();
 
   function sortCats() {
     $scope.cats.sort(function(a, b) {
