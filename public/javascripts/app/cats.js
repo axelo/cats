@@ -42,7 +42,7 @@ function CatsCtrl($scope, $http, $timeout, cats) {
 
   sortCats();
 
-  var webSocket = new WebSocket("ws://192.168.1.196:9000/voting");
+  var webSocket = new WebSocket("ws://" + window.location.host + "/voting");
 
   webSocket.onopen = function () {
     console.log("Voting open!");
