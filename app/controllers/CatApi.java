@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Cat;
-import models.CatRoom;
+import models.CatVotingBooth;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
@@ -40,7 +40,7 @@ public class CatApi extends Controller {
 		response().setHeader(LOCATION, url);
 
 		try {
-			CatRoom.notifyAll(cat);
+			CatVotingBooth.notifyAll(cat);
 		} catch (Exception e) {
 			return badRequest(e.getMessage());
 		}
@@ -55,7 +55,7 @@ public class CatApi extends Controller {
 		cat.update();
 
 		try {
-			CatRoom.notifyAll(cat);
+			CatVotingBooth.notifyAll(cat);
 		} catch (Exception e) {
 			return badRequest(e.getMessage());
 		}
@@ -68,9 +68,9 @@ public class CatApi extends Controller {
 			@Override
 			public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
 				try {
-					CatRoom.join(in, out);
+					CatVotingBooth.join(in, out);
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
 			}
 		};

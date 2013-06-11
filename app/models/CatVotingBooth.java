@@ -21,9 +21,9 @@ import akka.actor.UntypedActor;
 
 import com.google.common.collect.Lists;
 
-public class CatRoom extends UntypedActor {
+public class CatVotingBooth extends UntypedActor {
 
-	static ActorRef defaultRoom = Akka.system().actorOf(new Props(CatRoom.class));
+	private static ActorRef defaultRoom = Akka.system().actorOf(new Props(CatVotingBooth.class));
 
 	public static void join(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) throws Exception {
 		Join joinMessage = new Join(out);
@@ -49,38 +49,33 @@ public class CatRoom extends UntypedActor {
 	}
 
 	public static void notifyAll(Cat cat) throws Exception {
-		Update updateMessage = new Update(cat);
-		
-		Future<Object> updateQuestion = ask(defaultRoom, updateMessage, 5000);
-		
-		Await.result(updateQuestion, Duration.create(5, SECONDS));
+		Vote voteMessage = new Vote(cat);
+		defaultRoom.tell(voteMessage, null);
 	}
 	
-	private List<WebSocket.Out<JsonNode>> members = Lists.newArrayList();
+	private List<WebSocket.Out<JsonNode>> voters = Lists.newArrayList();
 
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message instanceof Join) {
 			Join join = (Join) message;
 
-			members.add(join.channel);
+			voters.add(join.channel);
 			
 			getSender().tell("OK", getSelf());
 		}
-		else if (message instanceof Update) {
-			Update update = (Update) message;
-			JsonNode catJson = Json.toJson(update.cat);
+		else if (message instanceof Vote) {
+			Vote vote = (Vote) message;
+			JsonNode catJson = Json.toJson(vote.cat);
 			
-			for (Out<JsonNode> memberOut : members) {
-				memberOut.write(catJson);			
+			for (Out<JsonNode> voteOut : voters) {
+				voteOut.write(catJson);			
 			}
-			
-			getSender().tell("OK", getSelf());
 		}
 		else if (message instanceof Quit) {
 			Quit quit = (Quit) message;
 			
-			members.remove(quit);
+			voters.remove(quit);
 		}
 	}
 
@@ -100,10 +95,10 @@ public class CatRoom extends UntypedActor {
 		}
 	}
 	
-	public static class Update {
+	public static class Vote {
 		public final Cat cat;
 		
-		public Update(Cat cat) {
+		public Vote(Cat cat) {
 			this.cat = cat;
 		}
 	}
